@@ -4,8 +4,10 @@ import { useState } from 'react';
 import ListOfData from './ListOfData';
 import logo from '../../assets/image/logo.png'
 import { useNavigate } from 'react-router-dom';
+import useSetTitle from '../../Hooks/useSetTitle';
 
 const Home = () => {
+    useSetTitle('Home')
     const navigate = useNavigate()
     const [allData, setAllData] = useState({})
     useEffect(() => {
@@ -25,13 +27,13 @@ const Home = () => {
     }
 
     return (
-        <section className="container mx-auto px-4 lg:px-0 mb-10">
+        <section className="container mx-auto px-4 lg:px-0 mb-10 lg:mb-0">
             <div className='mt-14'>
                 <div className='flex justify-between items-center'>
                     <img src={logo} alt="Logo" />
                     <button onClick={ handleLogout } className='text-white bg-theme-primary py-3 px-7 rounded'>Logout</button>
                 </div>
-                <div className='text-center mt-8 mb-20 '>
+                <div className='text-center mt-8 mb-20 ' data-aos="fade-up" data-aos-duration='2000'>
                     <h3 className='bg-theme-primary inline-block text-2xl md:text-4xl py-4 px-7 md:px-14 rounded text-white font-semibold leading-10'>Attendance information</h3>
                 </div>
             </div>

@@ -5,10 +5,11 @@ import logo from '../../assets/image/logo.png'
 import hero from '../../assets/image/hero.png'
 import { HiArrowNarrowLeft, HiArrowNarrowRight } from 'react-icons/hi'
 import { useState } from 'react';
+import useSetTitle from '../../Hooks/useSetTitle';
 
-const SIGNUP_FORM_MAX_STEPS = 3
 
 const SignUp = () => {
+    useSetTitle('Sign Up')
     const navigate = useNavigate()
     const { register, formState: { errors, isValid }, handleSubmit } = useForm({ mode: 'all' });
     const [formStep, setFormStep] = useState(0)
@@ -44,47 +45,16 @@ const SignUp = () => {
         
     }
 
-    const renderButton = () => {
-        if(formStep > 1) {
-           
-            return (
-                <div className="text-center mb-10 flex gap-4">
-                    {
-                        formStep > 0 &&
-                        <button onClick={backPreviousStep} className='text-[#767676] text-sm font-bold flex gap-1 items-center'><HiArrowNarrowLeft /> Back</button>
-                    }
-                    <button onClick={completeFormStep} disabled={ !isValid } type='submit' className={`${!isValid ? 'bg-gray-500' : 'bg-theme-primary'} py-4 px-5 rounded-2xl text-white font-medium flex items-center gap-[10px] mx-auto`}>Sign Up</button>
-                </div>  
-            )
-        }else {
-            return (
-                <>
-                    <div className="text-center mb-10 md:mb-20 lg:mb-[100px] flex gap-4">
-                        {
-                            formStep > 0 &&
-                            <button onClick={backPreviousStep} className='text-[#767676] text-sm font-bold flex gap-1 items-center'><HiArrowNarrowLeft /> Back</button>
-                        }
-                        <button onClick={completeFormStep} disabled={ !isValid } type='button' className={`${!isValid ? 'bg-gray-500' : 'bg-theme-primary'} py-4 px-5 rounded-2xl text-white font-medium flex items-center gap-[10px] mx-auto`}>Next Step <HiArrowNarrowRight /></button>
-                    </div>
-                    {
-                        formStep === 0 &&
-                        <p className='text-center text-[#7E7E7E] text-sm'>Already have an account?  <Link to='/login' className='uppercase text-theme-primary text-sm font-semibold hover:underline'>Login Here</Link></p>
-                    }
-                </>
-            )
-        }
-    }
 
     return (
-        <section className='container mx-auto px-4 md:px-0 lg:h-screen flex items-center'>
+        <section className='container mx-auto px-4 md:px-0 lg:h-screen flex items-center mb-10 lg:mb-0'>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-5 items-center'>
-                <div>
+                <div data-aos="fade-right" data-aos-duration='2000'>
                     <img src={ logo } alt="Logo" />
                     <img src={ hero } alt="" className='w-full object-cover' />
                 </div>
-                <div className='shadow-shadow px-20 pt-28 pb-16'>
+                <div className='shadow-shadow px-10 lg:px-20 pt-28 pb-16' data-aos="fade-left" data-aos-duration='2000'>
                     <h2 className='text-center text-xl leading-6 font-semibold text-theme-text mb-10 md:mb-20 lg:mb-[100px]'>SignUp Form</h2>
-                    <p className='mb-10'>Step {formStep + 1} of {SIGNUP_FORM_MAX_STEPS}</p>
                     <form onSubmit={handleSubmit(handleUserRegister)}>
                         {
                             formStep === 0 &&
@@ -97,6 +67,17 @@ const SignUp = () => {
                                     <input type="text" {...register("lastName", { required: true })} placeholder="Write a First name" className="border-b border-b-[#A4A4A4] w-full bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#B4B4B4] outline-none focus:border-theme-2nd focus-visible:shadow-none" />
                                     {errors.lastName && errors.lastName.type === "required" && <p className='text-red-600 text-xs text-left' role="alert">This field is required</p>}
                                 </div>
+                                <div className="text-center mb-10 md:mb-20 lg:mb-[100px] flex gap-4">
+                                    {
+                                        formStep > 0 &&
+                                        <button onClick={backPreviousStep} className='text-[#767676] text-sm font-bold flex gap-1 items-center'><HiArrowNarrowLeft /> Back</button>
+                                    }
+                                    <button onClick={completeFormStep} disabled={ !isValid } type='button' className={`${!isValid ? 'bg-gray-500' : 'bg-theme-primary'} shadow-shadow-tow py-4 px-5 rounded-2xl text-white font-medium flex items-center gap-[10px] mx-auto`}>Next Step <HiArrowNarrowRight /></button>
+                                </div>
+                                {
+                                    formStep === 0 &&
+                                    <p className='text-center text-[#7E7E7E] text-sm'>Already have an account?  <Link to='/login' className='uppercase text-theme-primary text-sm font-semibold hover:underline'>Login Here</Link></p>
+                                }
                             </>
                         }
                         {
@@ -109,19 +90,39 @@ const SignUp = () => {
                                 <div className="mb-10">
                                     <input type="email" {...register("email", { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} placeholder="Write Email Address" className="border-b border-b-[#A4A4A4] w-full bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#B4B4B4] outline-none focus:border-theme-2nd focus-visible:shadow-none" />{errors.email && errors.email.type === "required" && <p className='text-red-600 text-xs text-left' role="alert">This field is required</p>}
                                 </div>
+                                <div className="text-center mb-10 md:mb-20 lg:mb-[100px] flex gap-4">
+                                    {
+                                        formStep > 0 &&
+                                        <button onClick={backPreviousStep} className='text-[#767676] text-sm font-bold flex gap-1 items-center'><HiArrowNarrowLeft /> Back</button>
+                                    }
+                                    <button onClick={completeFormStep} disabled={ !isValid } type='button' className={`${!isValid ? 'bg-gray-500' : 'bg-theme-primary'} shadow-shadow-tow py-4 px-5 rounded-2xl text-white font-medium flex items-center gap-[10px] mx-auto`}>Next Step <HiArrowNarrowRight /></button>
+                                </div>
+                                {
+                                    formStep === 0 &&
+                                    <p className='text-center text-[#7E7E7E] text-sm'>Already have an account?  <Link to='/login' className='uppercase text-theme-primary text-sm font-semibold hover:underline'>Login Here</Link></p>
+                                } 
                             </>
                         } 
                         {
-                            formStep === 2 &&
-                            <div className="mb-10">
-                                <input type="password" {...register("password", { 
-                                    required: true,  
-                                    minLength: { value: 8, message: 'Password must be 8 character or longer!' },
-                                })} placeholder="Write Password" className="border-b border-b-[#A4A4A4] w-full bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#B4B4B4] outline-none focus:border-theme-2nd focus-visible:shadow-none" />
-                                {errors.password && <p className='text-red-600 text-xs text-left' role="alert">{errors.password?.message}</p>}
-                            </div>
+                            formStep >= 2 &&
+                            <>
+                                <div className="mb-10">
+                                    <input type="password" {...register("password", { 
+                                        required: true,  
+                                        minLength: { value: 8, message: 'Password must be 8 character or longer!' },
+                                    })} placeholder="Write Password" className="border-b border-b-[#A4A4A4] w-full bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#B4B4B4] outline-none focus:border-theme-2nd focus-visible:shadow-none" />
+                                    {errors.password && <p className='text-red-600 text-xs text-left' role="alert">{errors.password?.message}</p>}
+                                </div>
+                                <div className="text-center mb-10 flex gap-4">
+                                    {
+                                        formStep > 0 &&
+                                        <button onClick={backPreviousStep} className='text-[#767676] text-sm font-bold flex gap-1 items-center'><HiArrowNarrowLeft /> Back</button>
+                                    }
+                                    <button onClick={completeFormStep} disabled={ !isValid } type='submit' className={`${!isValid ? 'bg-gray-500' : 'bg-theme-primary'} shadow-shadow-tow py-4 px-5 rounded-2xl text-white font-medium flex items-center gap-[10px] mx-auto`}>Sign Up</button>
+                                </div> 
+                            </>
+                            
                         }
-                        { renderButton() }
                     </form>
                 </div>
             </div>
