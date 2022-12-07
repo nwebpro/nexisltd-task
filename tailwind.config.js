@@ -16,6 +16,9 @@ module.exports = {
       'theme-secondary': '#3B8BEA',
       'theme-text': '#242424',
     },
+    boxShadow: {
+      'shadow': '1px -10px 25px rgba(201, 201, 201, 0.25), -1px 10px 25px rgba(147, 147, 147, 0.25)',
+    },
    },
   },
   plugins: [],
