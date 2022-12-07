@@ -33,7 +33,6 @@ const Login = () => {
                 localStorage.setItem('NexisltdToken', data.access_token)
                 setToken(data.access_token)
             }
-            console.log(data)
         })
         
     }
